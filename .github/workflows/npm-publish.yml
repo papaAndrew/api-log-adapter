@@ -26,8 +26,5 @@ jobs:
         # https://github.com/marketplace/actions/npm-publish
         uses: JS-DevTools/npm-publish@v2
         with:
-          tag-name: "v%s"
-          tag-message: "v%s"
-          create-tag: "false"
-          commit-pattern: "^release.*"
           token: ${{secrets.NPM_TOKEN}}
+          commit-pattern: "^release.*"
