@@ -10,7 +10,8 @@
   },
   "scripts": {
     "build": "rm -rf dist && tsc",
-    "lint": "npm run eslint && npm run prettier:check"
+    "lint": "prettier --check . && eslint .",
+    "lint:fix": "prettier --write . && eslint . --fix"
   },
   "keywords": [
     "loopback4",
