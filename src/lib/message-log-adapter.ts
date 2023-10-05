@@ -1,9 +1,9 @@
-import {WinstonLogger} from '@loopback/logging';
+import { WinstonLogger } from "@loopback/logging";
 import {
   CustomLogAdapter,
   CustomLogAdapterOptions,
-} from './custom-log-adapter';
-import {ApiLogAdapter} from './types';
+} from "./custom-log-adapter";
+import { ApiLogAdapter } from "./types";
 
 const MAX_FRAGMENT_LENGTH = 1024 * 4;
 const MAX_FRAGMENTS_COUNT = 20;
@@ -13,26 +13,24 @@ export interface MessageLogAdapterOptions extends CustomLogAdapterOptions {
   maxDataLength?: string | number;
   maxFragmentLength?: string | number;
   maxFragmentsCount?: string | number;
-};
+}
 
 export class MessageLogAdapter
   extends CustomLogAdapter
-  implements ApiLogAdapter {
+  implements ApiLogAdapter
+{
   public sender = MessageLogAdapter.name;
-  public level = 'info';
+  public level = "info";
 
   public maxDataLength: number = MAX_DATA_LENGTH;
   public maxFragmentsCount: number = MAX_FRAGMENTS_COUNT;
   public maxFragmentLength: number = MAX_FRAGMENT_LENGTH;
 
-  constructor(
-    logger?: WinstonLogger,
-    options?: MessageLogAdapterOptions,
-  ) {
+  constructor(logger?: WinstonLogger, options?: MessageLogAdapterOptions) {
     super(logger, options);
 
     if (options) {
-      const {maxDataLength, maxFragmentsCount, maxFragmentLength} = options;
+      const { maxDataLength, maxFragmentsCount, maxFragmentLength } = options;
       this.maxFragmentsCount = maxFragmentsCount
         ? Number(maxFragmentsCount)
         : MAX_FRAGMENTS_COUNT;
@@ -48,7 +46,7 @@ export class MessageLogAdapter
   requestId?: string | undefined;
 
   protected fragment(data: string, fragmentSize: number): string[] {
-    const exp = new RegExp(`.{1,${fragmentSize}}`, 'gs');
+    const exp = new RegExp(`.{1,${fragmentSize}}`, "gs");
     return String(data).match(exp) ?? [];
   }
 
@@ -59,7 +57,7 @@ export class MessageLogAdapter
     dataPart: string;
     messagePart?: string;
   }[] {
-    const {maxDataLength, maxFragmentsCount, maxFragmentLength} = this;
+    const { maxDataLength, maxFragmentsCount, maxFragmentLength } = this;
     let maxLen = maxDataLength > 0 ? maxDataLength : 0;
     const fragCnt = maxFragmentsCount > 0 ? maxFragmentsCount : 1;
     const fragLen =
@@ -76,8 +74,9 @@ export class MessageLogAdapter
     maxLen = maxLen > maxLen1 ? maxLen1 : maxLen;
     const wrapped =
       data.length > maxLen
-        ? `${data.substring(0, maxLen - 32)} ...more ${data.length - maxLen + 32
-        } characters`
+        ? `${data.substring(0, maxLen - 32)} ...more ${
+            data.length - maxLen + 32
+          } characters`
         : data;
 
     return this.fragment(wrapped, fragLen).map((dataPart, i, arr) => {
@@ -98,13 +97,13 @@ export class MessageLogAdapter
       const parts = this.splitData(data, message);
       if (parts.length > 1) {
         for (const part of parts) {
-          const {dataPart, messagePart} = part;
-          const trap = Object.assign(base, {dataPart});
+          const { dataPart, messagePart } = part;
+          const trap = Object.assign(base, { dataPart });
           this.log(this.level, messagePart ?? message, trap);
         }
         return;
       }
-      const trap = Object.assign(base, {data});
+      const trap = Object.assign(base, { data });
       this.log(this.level, message, trap);
       return;
     }

@@ -5,16 +5,15 @@ import {
   Provider,
   ValueOrPromise,
   inject,
-  injectable
-} from '@loopback/core';
-import {Request, RestBindings} from '@loopback/rest';
-import {ApiLogAdapterBindings} from '../keys';
-import {HttpLogAdapter} from '../lib/http-log-adapter';
-import {LogAdapterOptions, XRequestId} from '../lib/types';
+  injectable,
+} from "@loopback/core";
+import { Request, RestBindings } from "@loopback/rest";
+import { ApiLogAdapterBindings } from "../keys";
+import { HttpLogAdapter } from "../lib/http-log-adapter";
+import { LogAdapterOptions, XRequestId } from "../lib/types";
 
-@injectable({scope: BindingScope.APPLICATION})
+@injectable({ scope: BindingScope.APPLICATION })
 export class LogRequestInterceptor implements Provider<Interceptor> {
-
   constructor(
     @inject(RestBindings.Http.REQUEST)
     private request: Request,
@@ -24,14 +23,14 @@ export class LogRequestInterceptor implements Provider<Interceptor> {
     private logAdapter: HttpLogAdapter,
     @inject(ApiLogAdapterBindings.OPTIONS)
     private logOptions: LogAdapterOptions,
-  ) { }
+  ) {}
 
   value(): Interceptor {
     return this.intercept.bind(this);
   }
 
   private bindToContext(invocationContext: InvocationContext) {
-    const {parent, targetName} = invocationContext;
+    const { parent, targetName } = invocationContext;
     if (parent) {
       parent.bind(ApiLogAdapterBindings.INTERCEPTED_METHOD).to(targetName);
     }
@@ -39,16 +38,14 @@ export class LogRequestInterceptor implements Provider<Interceptor> {
 
   private logRequest() {
     let canLog: boolean = true;
-    const {logInvocation} = this.logOptions ?? {};
+    const { logInvocation } = this.logOptions ?? {};
 
-    if (typeof logInvocation !== 'undefined') {
+    if (typeof logInvocation !== "undefined") {
       canLog = logInvocation === true || logInvocation === "true";
     }
     if (canLog) {
-      const {logAdapter, request} = this;
-      logAdapter
-        .onRequest(request)
-        .onRequestBody(request.body);
+      const { logAdapter, request } = this;
+      logAdapter.onRequest(request).onRequestBody(request.body);
     }
   }
 

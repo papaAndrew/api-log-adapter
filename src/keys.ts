@@ -1,7 +1,7 @@
-import {BindingKey, CoreBindings} from '@loopback/core';
-import {HttpLogAdapter} from './lib/http-log-adapter';
-import {MessageLogAdapter} from './lib/message-log-adapter';
-import {XRequestId} from './lib/types';
+import { BindingKey, CoreBindings } from "@loopback/core";
+import { HttpLogAdapter } from "./lib/http-log-adapter";
+import { MessageLogAdapter } from "./lib/message-log-adapter";
+import { XRequestId } from "./lib/types";
 
 const keyComponent = `${CoreBindings.COMPONENTS}.ApiLogAdapterComponent`;
 
@@ -35,10 +35,9 @@ export namespace ApiLogAdapterBindings {
     `${keyComponent}.MessageLogAdapter`,
   );
 
-  export const HTTP_LOG_ADAPTER =
-    BindingKey.create<HttpLogAdapter>(
-      `${keyComponent}.HttpLogAdapter`,
-    );
+  export const HTTP_LOG_ADAPTER = BindingKey.create<HttpLogAdapter>(
+    `${keyComponent}.HttpLogAdapter`,
+  );
 
   export const REQUEST_ID = BindingKey.create<XRequestId>(
     `${keyComponent}.RequestId`,
@@ -50,7 +49,6 @@ export namespace ApiLogAdapterBindings {
 }
 
 export namespace SharedBindings {
-
   export const X_REQUEST_ID = BindingKey.create<XRequestId>(`X-Request-Id`);
 
   export const USER_AGENT = BindingKey.create<string>(`User-Agent`);

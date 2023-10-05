@@ -6,24 +6,23 @@ import {
   CoreBindings,
   Interceptor,
   inject,
-} from '@loopback/core';
+} from "@loopback/core";
 import {
   LoggingBindings,
   LoggingComponent,
   LoggingComponentConfig,
-} from '@loopback/logging';
-import {RestBindings} from '@loopback/rest';
-import {LoggerOptions, format} from 'winston';
-import {ApiLogAdapterBindings} from './keys';
-import {LogAdapterOptions} from './lib/types';
-import {HttpLogAdapterProvider} from './providers/http-log-adapter.provider';
-import {LogRequestInterceptor} from './providers/log-request.interceptor';
-import {LogResponseErrorProvider} from './providers/log-response-error.provider';
-import {LogResponseRejectProvider} from './providers/log-response-reject.provider';
-import {LogResponseSendProvider} from './providers/log-response-send.provider';
-import {MessageLogAdapterProvider} from './providers/message-log-adapter.provider';
-import {RequestIdProvider} from './providers/requestid.provider';
-
+} from "@loopback/logging";
+import { RestBindings } from "@loopback/rest";
+import { LoggerOptions, format } from "winston";
+import { ApiLogAdapterBindings } from "./keys";
+import { LogAdapterOptions } from "./lib/types";
+import { HttpLogAdapterProvider } from "./providers/http-log-adapter.provider";
+import { LogRequestInterceptor } from "./providers/log-request.interceptor";
+import { LogResponseErrorProvider } from "./providers/log-response-error.provider";
+import { LogResponseRejectProvider } from "./providers/log-response-reject.provider";
+import { LogResponseSendProvider } from "./providers/log-response-send.provider";
+import { MessageLogAdapterProvider } from "./providers/message-log-adapter.provider";
+import { RequestIdProvider } from "./providers/requestid.provider";
 
 export class ApiLogAdapterComponent implements Component {
   bindings = [
@@ -44,20 +43,19 @@ export class ApiLogAdapterComponent implements Component {
   constructor(
     @inject(CoreBindings.APPLICATION_INSTANCE)
     private app: Application,
-    @inject(ApiLogAdapterBindings.OPTIONS, {optional: true})
+    @inject(ApiLogAdapterBindings.OPTIONS, { optional: true })
     options?: LogAdapterOptions,
   ) {
-
     this.configureWinston(options);
 
     this.updateSequence(options);
   }
 
   private configureWinston(options?: LogAdapterOptions) {
-    const {combine, timestamp, json} = format;
+    const { combine, timestamp, json } = format;
 
     const loggerConfig: LoggerOptions = {
-      level: options?.level ?? 'debug',
+      level: options?.level ?? "debug",
       format: combine(timestamp(), json()),
     };
 
@@ -77,8 +75,8 @@ export class ApiLogAdapterComponent implements Component {
   private updateSequence(options?: LogAdapterOptions) {
     let canUpdate: boolean = true;
 
-    const {logInvocation} = options ?? {};
-    if (typeof logInvocation !== 'undefined') {
+    const { logInvocation } = options ?? {};
+    if (typeof logInvocation !== "undefined") {
       canUpdate = logInvocation === true || logInvocation === "true";
     }
 
@@ -94,6 +92,4 @@ export class ApiLogAdapterComponent implements Component {
         .toProvider(LogResponseRejectProvider);
     }
   }
-
-
 }

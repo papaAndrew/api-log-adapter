@@ -1,5 +1,3 @@
-
-
 export type LogAdapterOptions = {
   level?: string;
   showBody?: boolean | string;
