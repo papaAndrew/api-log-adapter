@@ -1,6 +1,6 @@
 {
   "name": "@papa_andrew/api-log-adapter",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Logging component for Loopback4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
