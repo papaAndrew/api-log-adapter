@@ -10,7 +10,7 @@ import {
 import { Request, RestBindings } from "@loopback/rest";
 import { ApiLogAdapterBindings } from "../keys";
 import { HttpLogAdapter } from "../lib/http-log-adapter";
-import { LogAdapterOptions, XRequestId } from "../lib/types";
+import { LogAdapterOptions } from "../lib/types";
 
 @injectable({ scope: BindingScope.APPLICATION })
 export class LogRequestInterceptor implements Provider<Interceptor> {
@@ -18,8 +18,6 @@ export class LogRequestInterceptor implements Provider<Interceptor> {
     @inject(RestBindings.Http.REQUEST)
     private request: Request,
     @inject(ApiLogAdapterBindings.REQUEST_ID)
-    public requestId: XRequestId,
-    @inject(ApiLogAdapterBindings.HTTP_LOG_ADAPTER)
     private logAdapter: HttpLogAdapter,
     @inject(ApiLogAdapterBindings.OPTIONS)
     private logOptions: LogAdapterOptions,

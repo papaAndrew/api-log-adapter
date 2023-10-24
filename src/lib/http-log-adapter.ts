@@ -2,6 +2,16 @@ import { HandlerContext, Request, Response } from "@loopback/rest";
 import { anyToString } from "./custom-log-adapter";
 import { MessageLogAdapter } from "./message-log-adapter";
 
+// function readRequestBody(request: Request): Promise<string> {
+//   let result = Buffer.alloc(0);
+//   request.on("data", (chunk) => (result = Buffer.concat([result, chunk])));
+
+//   return new Promise((resolve, reject) => {
+//     request.on("end", () => resolve(result.toString()));
+//     request.on("error", (err) => reject(err));
+//   });
+// }
+
 export class HttpLogAdapter {
   private showBody: boolean = false;
 
