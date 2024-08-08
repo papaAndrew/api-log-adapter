@@ -17,7 +17,7 @@ export class LogRequestInterceptor implements Provider<Interceptor> {
   constructor(
     @inject(RestBindings.Http.REQUEST)
     private request: Request,
-    @inject(ApiLogAdapterBindings.REQUEST_ID)
+    @inject(ApiLogAdapterBindings.HTTP_LOG_ADAPTER)
     private logAdapter: HttpLogAdapter,
     @inject(ApiLogAdapterBindings.OPTIONS)
     private logOptions: LogAdapterOptions,
