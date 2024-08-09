@@ -1,6 +1,6 @@
-import { WinstonLogger } from "@loopback/logging";
-import { Stream } from "stream";
-import { LogAdapterOptions, XRequestId } from "./types";
+import {WinstonLogger} from '@loopback/logging';
+import {Stream} from 'stream';
+import {LogAdapterOptions, XRequestId} from './types';
 
 export interface CustomLogAdapterOptions extends LogAdapterOptions {
   userAgent?: string;
@@ -18,19 +18,19 @@ export type TrapBasic = {
 
 export function anyToString(data: any): string {
   if (Buffer.isBuffer(data)) {
-    return "[*buffer]";
+    return '[*buffer]';
   }
   if (data instanceof Stream) {
-    return "[*stream]";
+    return '[*stream]';
   }
 
   switch (typeof data) {
-    case "string":
-    case "bigint":
-    case "boolean":
-    case "number":
+    case 'string':
+    case 'bigint':
+    case 'boolean':
+    case 'number':
       return String(data);
-    case "object":
+    case 'object':
       return JSON.stringify(data);
     default:
       return `[*${typeof data}]`;
@@ -50,8 +50,8 @@ export class CustomLogAdapter {
   }
 
   protected buildTrapBasic(eventName: string): TrapBasic {
-    const { options, sender } = this;
-    const { userAgent, contextId, requestId } = options ?? {};
+    const {options, sender} = this;
+    const {userAgent, contextId, requestId} = options ?? {};
 
     return {
       sender,
@@ -68,35 +68,35 @@ export class CustomLogAdapter {
 
   http(eventName: string, message: string, args: object) {
     const title = this.buildTrapBasic(eventName);
-    this.log("http", message, {
+    this.log('http', message, {
       ...title,
       ...args,
     });
   }
   info(eventName: string, message: string, args: object) {
     const title = this.buildTrapBasic(eventName);
-    this.log("info", message, {
+    this.log('info', message, {
       ...title,
       ...args,
     });
   }
   debug(eventName: string, message: string, args: object) {
     const title = this.buildTrapBasic(eventName);
-    this.log("debug", message, {
+    this.log('debug', message, {
       ...title,
       ...args,
     });
   }
   warn(eventName: string, message: string, args: object) {
     const title = this.buildTrapBasic(eventName);
-    this.log("warn", message, {
+    this.log('warn', message, {
       ...title,
       ...args,
     });
   }
   error(eventName: string, message: string, args: object) {
     const title = this.buildTrapBasic(eventName);
-    this.log("error", message, {
+    this.log('error', message, {
       ...title,
       ...args,
     });

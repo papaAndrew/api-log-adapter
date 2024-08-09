@@ -1,9 +1,9 @@
 {
-  "include": ["src/**/*"],
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "extends": "@loopback/build/config/tsconfig.common.json",
   "compilerOptions": {
     "outDir": "dist",
-    "declaration": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true
-  }
+    "rootDir": "src"
+  },
+  "include": ["src"]
 }
