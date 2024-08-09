@@ -4,12 +4,12 @@ import {
   Setter,
   inject,
   injectable,
-} from "@loopback/core";
-import { Request, RestBindings } from "@loopback/rest";
-import { SharedBindings } from "../keys";
-import { XRequestId } from "../lib/types";
+} from '@loopback/core';
+import {Request, RestBindings} from '@loopback/rest';
+import {SharedBindings} from '../keys';
+import {XRequestId} from '../lib/types';
 
-@injectable({ scope: BindingScope.REQUEST })
+@injectable({scope: BindingScope.REQUEST})
 export class RequestIdProvider implements Provider<XRequestId> {
   private requestId: XRequestId;
 

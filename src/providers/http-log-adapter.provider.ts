@@ -1,7 +1,7 @@
-import { Getter, Provider, inject } from "@loopback/core";
-import { ApiLogAdapterBindings } from "../keys";
-import { HttpLogAdapter } from "../lib/http-log-adapter";
-import { MessageLogAdapter } from "../lib/message-log-adapter";
+import {Getter, Provider, inject} from '@loopback/core';
+import {ApiLogAdapterBindings} from '../keys';
+import {HttpLogAdapter} from '../lib/http-log-adapter';
+import {MessageLogAdapter} from '../lib/message-log-adapter';
 
 export class HttpLogAdapterProvider implements Provider<HttpLogAdapter> {
   /**
@@ -16,7 +16,7 @@ export class HttpLogAdapterProvider implements Provider<HttpLogAdapter> {
 
   async value(): Promise<HttpLogAdapter> {
     return this.logAdapterGetter().then(
-      (logAdapter) => new HttpLogAdapter(logAdapter),
+      logAdapter => new HttpLogAdapter(logAdapter),
     );
   }
 }

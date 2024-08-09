@@ -1,19 +1,19 @@
-import { BindingScope, Getter, inject, injectable } from "@loopback/core";
+import {BindingScope, Getter, inject, injectable} from '@loopback/core';
 import {
   OperationRetval,
   Response,
   SendProvider,
   writeResultToResponse,
-} from "@loopback/rest";
-import { ApiLogAdapterBindings } from "../keys";
-import { HttpLogAdapter } from "../lib/http-log-adapter";
+} from '@loopback/rest';
+import {ApiLogAdapterBindings} from '../keys';
+import {HttpLogAdapter} from '../lib/http-log-adapter';
 
-@injectable({ scope: BindingScope.APPLICATION })
+@injectable({scope: BindingScope.APPLICATION})
 export class LogResponseSendProvider implements SendProvider {
   constructor(
     @inject(ApiLogAdapterBindings.HTTP_LOG_ADAPTER)
     private logAdapter: HttpLogAdapter,
-    @inject.getter(ApiLogAdapterBindings.INTERCEPTED_METHOD, { optional: true })
+    @inject.getter(ApiLogAdapterBindings.INTERCEPTED_METHOD, {optional: true})
     private interceptedMethodGetter?: Getter<string>,
   ) {}
 
@@ -36,7 +36,7 @@ export class LogResponseSendProvider implements SendProvider {
    * handling function.
    */
   async action(response: Response, result: OperationRetval) {
-    await this.isIntercepted().then((intercepted) => {
+    await this.isIntercepted().then(intercepted => {
       if (intercepted) {
         this.logAdapter.onResponse(response).onResponseBody(result);
       }

@@ -1,7 +1,7 @@
-import { BindingKey, CoreBindings } from "@loopback/core";
-import { HttpLogAdapter } from "./lib/http-log-adapter";
-import { MessageLogAdapter } from "./lib/message-log-adapter";
-import { XRequestId } from "./lib/types";
+import {BindingKey, CoreBindings} from '@loopback/core';
+import {HttpLogAdapter} from './lib/http-log-adapter';
+import {MessageLogAdapter} from './lib/message-log-adapter';
+import {XRequestId} from './lib/types';
 
 const keyComponent = `${CoreBindings.COMPONENTS}.ApiLogAdapterComponent`;
 
