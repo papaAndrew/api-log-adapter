@@ -1,6 +1,6 @@
 {
   "name": "@papa_andrew/api-log-adapter",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "description": "Logging component for Loopback4",
   "keywords": [
     "loopback-application",
